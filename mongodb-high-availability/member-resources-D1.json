@@ -32,6 +32,15 @@
       "metadata": {
         "description": "Location for all resources."
       }
+    },
+    "vnetName": {
+        "type": "string"
+      },
+    "vnetResourceGroupName": {
+      "type": "string"
+    },
+    "subnetName": {
+      "type": "string"
     }
   },
   "variables": {},
@@ -51,8 +60,7 @@
       "apiVersion": "2015-05-01-preview",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('nicMemberPublicIP', parameters('machineSettings').machineIndex)]",
-        "[concat('Microsoft.Network/networkSecurityGroups/', parameters('securityGroupName'))]"
+        "[concat('nicMemberPublicIP', parameters('machineSettings').machineIndex)]"
       ],
       "properties": {
         "ipConfigurations": [
@@ -62,17 +70,14 @@
               "privateIPAllocationMethod": "Static",
               "privateIPAddress": "[concat(parameters('networkSettings').machineIpPrefix, parameters('machineSettings').machineIndex)]",
               "subnet": {
-                "id": "[parameters('networkSettings').subnetRef]"
+                "id":  "[resourceId(parameters('vnetResourceGroupName'),'Microsoft.Network/virtualNetworks/subnets/',parameters('vnetName'),parameters('subnetName'))]"
               },
               "publicIPAddress": {
                 "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat('nicMemberPublicIP', parameters('machineSettings').machineIndex))]"
               },
             }
           }
-        ],
-        "networkSecurityGroup": {
-          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('securityGroupName'))]"
-        }
+        ]
       }
     },
     {
