@@ -57,6 +57,13 @@
         "description": "Subnet name for the virtual network that resources will be provisioned in to"
       }
     },
+    "securityGroupName": {
+      "type": "string",
+      "defaultValue": "nsg-private-westus2-dev",
+      "metadata": {
+        "description": "Security Group Name"
+      }
+    },
     "addressPrefix": {
       "type": "string",
       "defaultValue": "10.0.0.0/16",
@@ -145,8 +152,8 @@
   "variables": {
     "_comment0": "/* T-shirt sizes may vary for different reasons, and some customers may want to modify these - so feel free to go ahead and define your favorite t-shirts */",
     "tshirtSizeXSmall": {
-      "vmSizeMember": "[concat('Standard_', parameters('vmSeries'), '1')]",
-      "vmSizeArbiter": "[concat('Standard_', parameters('vmSeries'), '1')]",
+      "vmSizeMember": "[concat('Standard_', parameters('vmSeries'), '1','_v2')]",
+      "vmSizeArbiter": "[concat('Standard_', parameters('vmSeries'), '1','_v2')]",
       "numberOfMembers": 1,
       "totalMemberCount": 2,
       "arbiter": "Enabled",
@@ -155,8 +162,8 @@
       "dataDiskSize": 128
     },
     "tshirtSizeSmall": {
-      "vmSizeMember": "[concat('Standard_', parameters('vmSeries'), '1')]",
-      "vmSizeArbiter": "[concat('Standard_', parameters('vmSeries'), '1')]",
+      "vmSizeMember": "[concat('Standard_', parameters('vmSeries'), '1','_v2')]",
+      "vmSizeArbiter": "[concat('Standard_', parameters('vmSeries'), '1','_v2')]",
       "numberOfMembers": 2,
       "totalMemberCount": 3,
       "arbiter": "Disabled",
