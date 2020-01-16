@@ -52,7 +52,7 @@
       "location": "[parameters('location')]",
       "dependsOn": [
         "[concat('nicMemberPublicIP', parameters('machineSettings').machineIndex)]",
-        "[concat('Microsoft.Network/networkSecurityGroups/', parameters('securityGroupName')))]"
+        "[concat('Microsoft.Network/networkSecurityGroups/', parameters('securityGroupName'))]"
       ],
       "properties": {
         "ipConfigurations": [
