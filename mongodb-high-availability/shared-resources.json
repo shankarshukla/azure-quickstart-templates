@@ -50,31 +50,10 @@
       "sku": {
         "name": "Aligned"
         },
-        "properties": { 
+        "properties": {
         "platformFaultDomainCount": 2,
         "platformUpdateDomainCount": 5
         }
-    },
-    {
-      "apiVersion": "2015-05-01-preview",
-      "type": "Microsoft.Network/virtualNetworks",
-      "name": "[parameters('networkSettings').virtualNetworkName]",
-      "location": "[parameters('location')]",
-      "properties": {
-        "addressSpace": {
-          "addressPrefixes": [
-            "[parameters('networkSettings').addressPrefix]"
-          ]
-        },
-        "subnets": [
-          {
-            "name": "[parameters('networkSettings').subnetName]",
-            "properties": {
-              "addressPrefix": "[parameters('networkSettings').subnetPrefix]"
-            }
-          }
-        ]
-      }
     }
   ]
 }
