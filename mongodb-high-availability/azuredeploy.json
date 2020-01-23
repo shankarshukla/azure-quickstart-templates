@@ -172,7 +172,7 @@
       "storageAccountCount": 1,
       "dataDiskSize": 128
     },
-    "tshirtSizeSmall-Small-prod": {
+    "tshirtSizeSmall-prod": {
       "vmSizeMember": "[concat('Standard_', parameters('vmSeries'), '1','_v2')]",
       "vmSizeArbiter": "[concat('Standard_', parameters('vmSeries'), '1','_v2')]",
       "numberOfMembers": 2,
@@ -292,6 +292,9 @@
     "storageAccountForSmall_0": "0",
     "storageAccountForSmall_1": "0",
     "storageAccountForSmall_2": "0",
+    "storageAccountForSmall-prod_0": "0",
+    "storageAccountForSmall-prod_1": "0",
+    "storageAccountForSmall-prod_2": "0",
     "storageAccountForMedium_0": "0",
     "storageAccountForMedium_1": "0",
     "storageAccountForMedium_2": "0",
