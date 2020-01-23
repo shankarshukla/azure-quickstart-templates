@@ -51,9 +51,7 @@
       "name": "[concat('nicMember', parameters('machineSettings').machineIndex)]",
       "apiVersion": "2015-05-01-preview",
       "location": "[parameters('location')]",
-      "dependsOn": [
-        "[concat('nicMemberPublicIP', parameters('machineSettings').machineIndex)]"
-      ],
+      "dependsOn": [],
       "properties": {
         "ipConfigurations": [
           {
