@@ -46,11 +46,20 @@
   "variables": {},
   "resources": [
     {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[concat('nicMemberPublicIP', parameters('machineSettings').machineIndex)]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publicIPAllocationMethod": "Static"
+      }
+    },
+    {
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[concat('nicMember', parameters('machineSettings').machineIndex)]",
       "apiVersion": "2015-05-01-preview",
       "location": "[parameters('location')]",
-      "dependsOn": [],
+      "dependsOn": [ "[concat('nicMemberPublicIP', parameters('machineSettings').machineIndex)]" ],
       "properties": {
         "ipConfigurations": [
           {
@@ -60,7 +69,10 @@
               "privateIPAddress": "[concat(parameters('networkSettings').machineIpPrefix, parameters('machineSettings').machineIndex)]",
               "subnet": {
                 "id":  "[resourceId(parameters('vnetResourceGroupName'),'Microsoft.Network/virtualNetworks/subnets/',parameters('vnetName'),parameters('subnetName'))]"
-              }
+              },
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat('nicMemberPublicIP', parameters('machineSettings').machineIndex))]"
+              },
             }
           }
         ]
