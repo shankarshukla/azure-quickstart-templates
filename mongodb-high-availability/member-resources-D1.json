@@ -91,11 +91,11 @@
               "publicKeys": [
                 {
                   "path": "[concat('/home/', parameters('machineSettings').adminUsername, '/.ssh/authorized_keys')]",
-                  "keyData": "[parameters('machineSettings'), sshPublicKeyData]"
+                  "keyData": "[parameters('machineSettings').sshPublicKeyData]"
                 },
                 {
                   "path": "[concat('/home/', parameters('machineSettings').adminUsername, '/.ssh/authorized_keys')]",
-                  "keyData": "[parameters('machineSettings'), sshPublicKeyDataDevOps]"
+                  "keyData": "[parameters('machineSettings').sshPublicKeyDataDevOps]"
                 }
               ]
             }
