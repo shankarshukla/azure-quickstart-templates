@@ -94,7 +94,7 @@
           "vmSize": "[parameters('machineSettings').vmSize]"
         },
         "osProfile": {
-          "computerName": "[concat(parameters('machineSettings').machineNamePrefix, 'member', parameters('machineSettings').machineIndex),parameters('machineSettings').machineNameSuffix]",
+          "computerName": "[concat(parameters('machineSettings').machineNamePrefix, 'member', parameters('machineSettings').machineIndex,parameters('machineSettings').machineNameSuffix)]",
           "adminUsername": "[parameters('machineSettings').adminUsername]",
           "adminPassword": "[parameters('machineSettings').adminPassword]",
           "linuxConfiguration": {
