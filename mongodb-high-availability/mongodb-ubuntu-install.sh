@@ -59,7 +59,6 @@ help()
 	echo "		-k Replica set key"
 	echo "		-u System administrator's user name"
 	echo "		-p System administrator's password"
-	echo "		-x Member node IP prefix"	
 	echo "		-x Member node IP prefix"
 	echo "		-n Number of member nodes"
 	echo "		-a (arbiter indicator)"
