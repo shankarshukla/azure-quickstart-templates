@@ -28,7 +28,7 @@
       }
     },
     "tags": {
-      "type" : "string"
+      "type" : "object"
     }
   },
   "resources": [

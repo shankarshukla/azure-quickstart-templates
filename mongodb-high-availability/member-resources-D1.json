@@ -43,7 +43,7 @@
       "type": "string"
     },
     "tags": {
-      "type" : "string"
+      "type" : "object"
     }
   },
   "variables": {},
