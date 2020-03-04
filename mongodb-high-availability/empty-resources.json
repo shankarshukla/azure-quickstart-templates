@@ -25,6 +25,10 @@
       "metadata": {
         "Description": "Machine settings object"
       }
+    },
+    "resourceTags": {
+      "type" : "object",
+      "defaultValue": {}
     }
   },
   "variables": {},

@@ -41,6 +41,10 @@
     },
     "subnetName": {
       "type": "string"
+    },
+    "resourceTags": {
+      "type" : "object",
+      "defaultValue": {}
     }
   },
   "variables": {},

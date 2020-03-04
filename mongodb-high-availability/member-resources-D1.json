@@ -43,7 +43,8 @@
       "type": "string"
     },
     "resourceTags": {
-      "type" : "object"
+      "type" : "object",
+      "defaultValue": {}
     }
   },
   "variables": {},
