@@ -34,8 +34,7 @@
       }
     },
     "resourceTags": {
-      "type" : "object",
-      "defaultValue": {}
+      "type" : "object"
     }
   },
   "variables": {
