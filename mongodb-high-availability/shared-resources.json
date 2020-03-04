@@ -26,6 +26,9 @@
       "metadata": {
         "description": "Location for all resources."
       }
+    },
+    "tags": {
+      "type" : "string"
     }
   },
   "resources": [
@@ -38,6 +41,9 @@
         "name": "storageAccountsLoop",
         "count": "[parameters('storageSettings').storageAccountCount]"
       },
+      "tags": {
+        "value" : "[parameters('tags')]"
+      },
       "properties": {
         "accountType": "[parameters('storageSettings').storageAccountType]"
       }
@@ -47,6 +53,9 @@
       "type": "Microsoft.Compute/availabilitySets",
       "name": "[parameters('commonSettings').availabilitySetName]",
       "location": "[parameters('location')]",
+      "tags": {
+        "value" : "[parameters('tags')]"
+      },
       "sku": {
         "name": "Aligned"
         },
