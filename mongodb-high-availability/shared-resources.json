@@ -28,7 +28,13 @@
       }
     },
     "resourceTags": {
-      "type" : "object"
+      "type" : "object",
+      "defaultValue": {
+        "Environment": "Dev",
+        "BillTo": "sretools",
+        "Architecture": "NoSQLDB",
+        "AlertName": "VO team name"
+      }
     }
   },
   "resources": [
