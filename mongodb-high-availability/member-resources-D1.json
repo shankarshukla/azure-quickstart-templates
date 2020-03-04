@@ -42,7 +42,7 @@
     "subnetName": {
       "type": "string"
     },
-    "tags": {
+    "resourceTags": {
       "type" : "object"
     }
   },
@@ -54,7 +54,7 @@
       "name": "[concat('nicMemberPublicIP', parameters('machineSettings').machineIndex)]",
       "location": "[parameters('location')]",
       "tags": {
-        "value" : "[parameters('tags')]"
+        "value" : "[parameters('resourceTags')]"
       },
       "properties": {
         "publicIPAllocationMethod": "Static"
@@ -67,7 +67,7 @@
       "location": "[parameters('location')]",
       "dependsOn": [ "[concat('nicMemberPublicIP', parameters('machineSettings').machineIndex)]" ],
       "tags": {
-        "value" : "[parameters('tags')]"
+        "value" : "[parameters('resourceTags')]"
       },
       "properties": {
         "ipConfigurations": [
@@ -96,7 +96,7 @@
         "[concat('Microsoft.Network/networkInterfaces/', 'nicMember', parameters('machineSettings').machineIndex)]"
       ],
       "tags": {
-        "value" : "[parameters('tags')]"
+        "value" : "[parameters('resourceTags')]"
       },
       "properties": {
         "availabilitySet": {
@@ -170,7 +170,7 @@
         "[concat('Microsoft.Compute/virtualMachines/', 'vmMember', parameters('machineSettings').machineIndex)]"
       ],
       "tags": {
-        "value" : "[parameters('tags')]"
+        "value" : "[parameters('resourceTags')]"
       },
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
