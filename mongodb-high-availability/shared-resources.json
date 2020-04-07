@@ -38,20 +38,22 @@
     }
   },
   "resources": [
-    {
+     {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[concat(parameters('storageSettings').vhdStorageAccountName, copyindex())]",
-      "apiVersion": "2019-06-01",
       "location": "[parameters('location')]",
       "copy": {
         "name": "storageAccountsLoop",
         "count": "[parameters('storageSettings').storageAccountCount]"
       },
-      "tags": "[parameters('resourceTags')]",
-      "properties": {
-        "accountType": "[parameters('storageSettings').storageAccountType]"
-      }
-    },
+     "tags": "[parameters('resourceTags')]",
+      "apiVersion": "2019-04-01",
+      "sku": {
+        "name": "[parameters('storageSettings').storageAccountType]"
+      },
+      "kind": "StorageV2",
+      "properties": {}
+     },
     {
       "apiVersion": "2019-12-01",
       "type": "Microsoft.Compute/availabilitySets",
