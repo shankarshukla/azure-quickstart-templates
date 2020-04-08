@@ -33,7 +33,7 @@
         "Environment": "Dev",
         "BillTo": "sre",
         "Architecture": "NoSQLDB",
-        "AlertName": "VO team name"
+        "AlertName": "DevOps"
       }
     }
   },
