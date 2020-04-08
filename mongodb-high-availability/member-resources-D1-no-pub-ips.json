@@ -59,7 +59,6 @@
       "name": "[concat('nicMember', parameters('machineSettings').machineIndex)]",
       "apiVersion": "2015-05-01-preview",
       "location": "[parameters('location')]",
-      "dependsOn": [ "[concat('nicMemberPublicIP', parameters('machineSettings').machineIndex)]" ],
       "tags": "[parameters('resourceTags')]",
       "properties": {
         "ipConfigurations": [
@@ -70,10 +69,7 @@
               "privateIPAddress": "[concat(parameters('networkSettings').machineIpPrefix, parameters('machineSettings').machineIndex)]",
               "subnet": {
                 "id":  "[resourceId(parameters('vnetResourceGroupName'),'Microsoft.Network/virtualNetworks/subnets/',parameters('vnetName'),parameters('subnetName'))]"
-              },
-              "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat('nicMemberPublicIP', parameters('machineSettings').machineIndex))]"
-              },
+              }
             }
           }
         ]
