@@ -245,7 +245,8 @@ configure_replicaset()
 		#mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host 127.0.0.1 --eval 'printjson(rs.initiate({ members: [{ _id: 0, host: "mongodb0.example.net:27017" }]}))'
 		rsinit="printjson(rs.initiate({_id : \"$REPLICA_SET_NAME\", members: [{ _id: 0, host: \"${NODE_IP_PREFIX}$(( $INSTANCE_COUNT-1 )):${MONGODB_PORT}\" }]}))"
 		log rsinit
-		log ${NODE_IP_PREFIX}$(( $INSTANCE_COUNT-1 )
+		log "node ip prefix ${NODE_IP_PREFIX}"
+		log "instance count $INSTANCE_COUNT"
 		mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host 127.0.0.1 --eval "${rsinit}"
 
 		# Add all members except this node as it will be included into the replica set after the above command completes
