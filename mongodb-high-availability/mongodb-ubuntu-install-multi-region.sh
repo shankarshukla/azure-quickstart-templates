@@ -62,7 +62,7 @@ help()
 	echo "		-u System administrator's user name"
 	echo "		-p System administrator's password"
 	echo "		-x Member node IP prefix"
-        echo "		-ax Additional Member node IP prefix in other regions"
+        echo "		-y Additional Member node IP prefix in other regions"
 	echo "		-n Number of member nodes"
 	echo "		-a (arbiter indicator)"
 	echo "		-l (last member indicator)"
@@ -85,7 +85,7 @@ then
 fi
 
 # Parse script parameters
-while getopts :i:b:v:r:k:u:p:x:ax:n:alh optname; do
+while getopts :i:b:v:r:k:u:p:x:y:n:alh optname; do
 
 	# Log input parameters (except the admin password) to facilitate troubleshooting
 	if [ ! "$optname" == "p" ] && [ ! "$optname" == "k" ]; then
@@ -117,7 +117,7 @@ while getopts :i:b:v:r:k:u:p:x:ax:n:alh optname; do
 	x) # Private IP address prefix
 		NODE_IP_PREFIX=${OPTARG}
 		;;
-        ax) # Additional Private IP address prefix
+        y) # Additional Private IP address prefix
 		ADDITIONAL_NODE_IP_PREFIX=${OPTARG}
 		;;
 	n) # Number of instances
