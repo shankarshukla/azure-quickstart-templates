@@ -64,7 +64,6 @@ help()
 	echo "		-x Member node IP prefix"
   echo "		-ax Additional Member node IP prefix in other regions"
 	echo "		-n Number of member nodes"
-	echo "		-an Additional Number of member nodes in other regions"
 	echo "		-a (arbiter indicator)"
 	echo "		-l (last member indicator)"
 }
@@ -123,9 +122,6 @@ while getopts :i:b:v:r:k:u:p:x:n:alh optname; do
 		;;
 	n) # Number of instances
 		INSTANCE_COUNT=${OPTARG}
-		;;
-	an) # Additional Number of instances
-		ADDITIONAL_INSTANCE_COUNT=${OPTARG}
 		;;
 	a) # Arbiter indicator
 		IS_ARBITER=true
@@ -261,7 +257,7 @@ configure_replicaset()
 		done
 
 		# Add all members except this node as it will be included into the replica set after the above command completes
-		for (( n=0 ; n<($ADDITIONAL_INSTANCE_COUNT) ; n++))
+		for (( n=0 ; n<($INSTANCE_COUNT) ; n++))
 		do
 			MEMBER_HOST="${ADDITIONAL_NODE_IP_PREFIX}${n}:${MONGODB_PORT}"
 
