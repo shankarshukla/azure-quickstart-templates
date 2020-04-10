@@ -246,7 +246,7 @@ configure_replicaset()
 
 		# Initiate a replica set
 		#mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host 127.0.0.1 --eval 'printjson(rs.initiate({ members: [{ _id: 0, host: "mongodb0.example.net:27017" }]}))'
-		rsinit="printjson(rs.initiate({_id : \"$REPLICA_SET_NAME\", members: [{ _id: 0, host: \"${NODE_IP_PREFIX}$(( $INSTANCE_COUNT-1 )):${MONGODB_PORT}\" }]}))"
+		rsinit="printjson(rs.initiate({_id:\"$REPLICA_SET_NAME\",members:[{_id:0,host:\"${NODE_IP_PREFIX}$(($INSTANCE_COUNT-1)):${MONGODB_PORT}\"}]}))"
 		log $rsinit
 		mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host 127.0.0.1 --eval "${rsinit}"
 
