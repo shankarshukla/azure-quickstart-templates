@@ -219,9 +219,6 @@ configure_datadisks()
 configure_replicaset()
 {
 	log "Configuring a replica set $REPLICA_SET_NAME"
-	
-	rsinit="printjson(rs.initiate({_id : \"$REPLICA_SET_NAME\", members: [{ _id: 0, host: \"${NODE_IP_PREFIX}$(( $INSTANCE_COUNT-1 )):${MONGODB_PORT}\" }]}))"
-	log $rsinit
 
 	echo "$REPLICA_SET_KEY_DATA" | tee "$REPLICA_SET_KEY_FILE" > /dev/null
 	chown -R mongodb:mongodb "$REPLICA_SET_KEY_FILE"
