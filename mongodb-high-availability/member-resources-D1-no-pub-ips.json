@@ -59,7 +59,7 @@
       "name": "[concat('nicMember', parameters('machineSettings').machineIndex)]",
       "apiVersion": "2015-05-01-preview",
       "location": "[parameters('location')]",
-      "tags": "[parameters('resourceTags')]",
+      "tags": "[parameters('commonSettings').resourceTags]",
       "properties": {
         "ipConfigurations": [
           {
@@ -83,7 +83,7 @@
       "dependsOn": [
         "[concat('Microsoft.Network/networkInterfaces/', 'nicMember', parameters('machineSettings').machineIndex)]"
       ],
-      "tags": "[parameters('resourceTags')]",
+      "tags": "[parameters('commonSettings').resourceTags]",
       "properties": {
         "availabilitySet": {
           "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('commonSettings').availabilitySetName)]"
@@ -155,7 +155,7 @@
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', 'vmMember', parameters('machineSettings').machineIndex)]"
       ],
-      "tags": "[parameters('resourceTags')]",
+      "tags": "[parameters('commonSettings').resourceTags]",
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
         "type": "CustomScript",
