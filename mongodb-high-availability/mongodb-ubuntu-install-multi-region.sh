@@ -47,7 +47,8 @@ ADMIN_USER_PASSWORD="admin"
 INSTANCE_COUNT=1
 ADDITIONAL_INSTANCE_COUNT=1
 NODE_IP_PREFIX="10.0.0.1"
-ADDITIONAL_NODE_IP_PREFIX="10.0.0.1"
+DR1_NODE_IP_PREFIX="10.0.0.1"
+DR2_NODE_IP_PREFIX="10.0.0.1"
 LOGGING_KEY="[logging-key]"
 
 help()
@@ -62,7 +63,8 @@ help()
 	echo "		-u System administrator's user name"
 	echo "		-p System administrator's password"
 	echo "		-x Member node IP prefix"
-        echo "		-y Additional Member node IP prefix in other regions"
+        echo "		-y Node IP Prefix in DR1 region"
+	echo "		-z Node IP Prefix in DR2 region"
 	echo "		-n Number of member nodes"
 	echo "		-a (arbiter indicator)"
 	echo "		-l (last member indicator)"
@@ -85,7 +87,7 @@ then
 fi
 
 # Parse script parameters
-while getopts :i:b:v:r:k:u:p:x:y:n:alh optname; do
+while getopts :i:b:v:r:k:u:p:x:y::z:n:alh optname; do
 
 	# Log input parameters (except the admin password) to facilitate troubleshooting
 	if [ ! "$optname" == "p" ] && [ ! "$optname" == "k" ]; then
@@ -117,8 +119,11 @@ while getopts :i:b:v:r:k:u:p:x:y:n:alh optname; do
 	x) # Private IP address prefix
 		NODE_IP_PREFIX=${OPTARG}
 		;;
-        y) # Additional Private IP address prefix
-		ADDITIONAL_NODE_IP_PREFIX=${OPTARG}
+        y) # DR1 Private IP address prefix
+		DR1_NODE_IP_PREFIX=${OPTARG}
+		;;
+        z) # DR2 Private IP address prefix
+		DR2_NODE_IP_PREFIX=${OPTARG}
 		;;
 	n) # Number of instances
 		INSTANCE_COUNT=${OPTARG}
@@ -259,7 +264,16 @@ configure_replicaset()
 		# Add all members except this node as it will be included into the replica set after the above command completes
 		for (( n=0 ; n<($INSTANCE_COUNT) ; n++))
 		do
-			MEMBER_HOST="${ADDITIONAL_NODE_IP_PREFIX}${n}:${MONGODB_PORT}"
+			MEMBER_HOST="${DR1_NODE_IP_PREFIX}${n}:${MONGODB_PORT}"
+
+			log "Adding member $MEMBER_HOST to replica set $REPLICA_SET_NAME"
+			mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host 127.0.0.1 --eval "printjson(rs.add('${MEMBER_HOST}'))"
+		done
+		
+		# Add all members except this node as it will be included into the replica set after the above command completes
+		for (( n=0 ; n<($INSTANCE_COUNT) ; n++))
+		do
+			MEMBER_HOST="${DR2_NODE_IP_PREFIX}${n}:${MONGODB_PORT}"
 
 			log "Adding member $MEMBER_HOST to replica set $REPLICA_SET_NAME"
 			mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host 127.0.0.1 --eval "printjson(rs.add('${MEMBER_HOST}'))"
