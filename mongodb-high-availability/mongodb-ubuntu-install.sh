@@ -41,6 +41,7 @@ MONGODB_DATA="$DATA_MOUNTPOINT/mongodb"
 MONGODB_PORT=27017
 IS_ARBITER=false
 IS_LAST_MEMBER=false
+IS_BACKUP_ENABLED=false
 JOURNAL_ENABLED=true
 ADMIN_USER_NAME="admin"
 ADMIN_USER_PASSWORD="admin"
@@ -63,6 +64,7 @@ help()
 	echo "		-n Number of member nodes"
 	echo "		-a (arbiter indicator)"
 	echo "		-l (last member indicator)"
+	echo "		-d (backup cron job enabled indicator)"
 }
 
 log()
@@ -82,7 +84,7 @@ then
 fi
 
 # Parse script parameters
-while getopts :i:b:v:r:k:u:p:x:n:alh optname; do
+while getopts :i:b:v:r:k:u:p:x:n:aldh optname; do
 
 	# Log input parameters (except the admin password) to facilitate troubleshooting
 	if [ ! "$optname" == "p" ] && [ ! "$optname" == "k" ]; then
@@ -122,6 +124,9 @@ while getopts :i:b:v:r:k:u:p:x:n:alh optname; do
 		;;
 	l) # Last member indicator
 		IS_LAST_MEMBER=true
+		;;
+	d) # cron job setup indicator
+		IS_BACKUP_ENABLED=true
 		;;
     h)  # Helpful hints
 		help
@@ -344,6 +349,17 @@ configure_db_users()
 	mongo admin --host 127.0.0.1 --eval "db.createUser({user: '${ADMIN_USER_NAME}', pwd: '${ADMIN_USER_PASSWORD}', roles:[{ role: 'userAdminAnyDatabase', db: 'admin' }, { role: 'clusterAdmin', db: 'admin' }, { role: 'readWriteAnyDatabase', db: 'admin' }, { role: 'dbAdminAnyDatabase', db: 'admin' } ]})"
 }
 
+setup_backup_cron_job()
+{
+	if [ "$IS_BACKUP_ENABLED" = true ]
+	then
+	  echo " Enabling db_backup cron job..."
+	  echo -e "SHELL=/bin/bash\n* * * * 0-7 t=\$[ ( \$RANDOM \% 60 ) + 1 ]s;sleep \$t;dir='/home/$ADMIN_USER_NAME/cron_backups/';mkdir -p \$dir;ls -dt \$dir*| tail -n +11|xargs rm -rf;date_str=\`date +\%F-\%T\`;output=\$dir\$date_str;mongodump -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --out \$output>>\$dir../daily_backup.log 2>&1">>db_backup_cron;crontab db_backup_cron;rm db_backup_cron
+	else
+	  echo "Not enabling db_backup cron job."
+	fi
+}
+
 # Step 1
 configure_datadisks
 
@@ -365,6 +381,9 @@ configure_db_users
 
 # Step 7
 configure_replicaset
+
+# Step 8
+setup_backup_cron_job
 
 # Exit (proudly)
 exit 0
