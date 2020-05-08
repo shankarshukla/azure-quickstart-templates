@@ -54,13 +54,12 @@
   },
   "variables": {},
   "resources": [
-
     {
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[concat('nicMember', parameters('machineSettings').machineIndex)]",
       "apiVersion": "2015-05-01-preview",
       "location": "[parameters('location')]",
-      "dependsOn": [],
+      "tags": "[parameters('commonSettings').resourceTags]",
       "properties": {
         "ipConfigurations": [
           {
@@ -84,6 +83,7 @@
       "dependsOn": [
         "[concat('Microsoft.Network/networkInterfaces/', 'nicMember', parameters('machineSettings').machineIndex)]"
       ],
+      "tags": "[parameters('commonSettings').resourceTags]",
       "properties": {
         "availabilitySet": {
           "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('commonSettings').availabilitySetName)]"
@@ -92,9 +92,24 @@
           "vmSize": "[parameters('machineSettings').vmSize]"
         },
         "osProfile": {
-          "computerName": "[concat(parameters('machineSettings').machineNamePrefix, 'member', parameters('machineSettings').machineIndex)]",
+          "computerName": "[concat(parameters('machineSettings').machineNamePrefix, 'member', parameters('machineSettings').machineIndex, parameters('machineSettings').machineNameSuffix)]",
           "adminUsername": "[parameters('machineSettings').adminUsername]",
-          "adminPassword": "[parameters('machineSettings').adminPassword]"
+          "adminPassword": "[parameters('machineSettings').adminPassword]",
+          "linuxConfiguration": {
+            "disablePasswordAuthentication": true,
+            "ssh": {
+              "publicKeys": [
+                {
+                  "path": "[concat('/home/', parameters('machineSettings').adminUsername, '/.ssh/authorized_keys')]",
+                  "keyData": "[parameters('machineSettings').sshPublicKeyData]"
+                },
+                {
+                  "path": "[concat('/home/', parameters('machineSettings').adminUsername, '/.ssh/authorized_keys')]",
+                  "keyData": "[parameters('machineSettings').sshPublicKeyDataDevOps]"
+                }
+              ]
+            }
+          }
         },
         "storageProfile": {
           "imageReference": "[parameters('machineSettings').osImageReference]",
@@ -140,6 +155,7 @@
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', 'vmMember', parameters('machineSettings').machineIndex)]"
       ],
+      "tags": "[parameters('commonSettings').resourceTags]",
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
         "type": "CustomScript",
