@@ -383,7 +383,7 @@ setup_backup_cron_job()
 	if [ "$IS_BACKUP_ENABLED" = true ]
 	then
 	  echo " Enabling db_backup cron job..."
-	  echo -e "SHELL=/bin/bash\n* * * * 0-7 t=\$[ ( \$RANDOM \% 60 ) + 1 ]s;sleep \$t;dir='/home/$ADMIN_USER_NAME/cron_backups/';mkdir -p \$dir;ls -dt \$dir*| tail -n +11|xargs rm -rf;date_str=\`date +\%F-\%T\`;output=\$dir\$date_str;mongodump -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --out \$output>>\$dir../daily_backup.log 2>&1">>db_backup_cron;crontab db_backup_cron;rm db_backup_cron
+	  echo -e "SHELL=/bin/bash\n0 0 * * 0-7 t=\$[ ( \$RANDOM \% 300 ) + 1 ]s;sleep \$t;dir='/home/$ADMIN_USER_NAME/cron_backups/';mkdir -p \$dir;ls -dt \$dir*| tail -n +11|xargs rm -rf;date_str=\`date +\%F-\%T\`;output=\$dir\$date_str;mongodump -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --out \$output>>\$dir../daily_backup.log 2>&1">>db_backup_cron;crontab db_backup_cron;rm db_backup_cron
 	else
 	  echo "Not enabling db_backup cron job."
 	fi
