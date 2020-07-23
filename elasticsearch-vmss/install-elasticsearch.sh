@@ -96,7 +96,7 @@ install_java()
         return
     fi
     
-    log "Installing Java"
+    log "Installing Java111111"
     RETRY=0
     MAX_RETRY=5
     while [ $RETRY -lt $MAX_RETRY ]; do
