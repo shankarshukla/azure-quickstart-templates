@@ -114,7 +114,7 @@ install_java()
     fi
     
     tar xzf jdk-8u261-linux-x64.tar.gz -C /var/lib
-    export JAVA_HOME=/var/lib/jdk1.8.0_201
+    export JAVA_HOME=/var/lib/jdk1.8.0_261
     export PATH=$PATH:$JAVA_HOME/bin
     log "JAVA_HOME: $JAVA_HOME"
     log "PATH: $PATH"
@@ -199,7 +199,7 @@ configure_system()
         DATA_DIR="/datadisks/disk1"
         if ! [ -f "vm-disk-utils-0.1.sh" ]; 
         then
-            DOWNLOAD_SCRIPT="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/shared_scripts/ubuntu/vm-disk-utils-0.1.sh"
+            DOWNLOAD_SCRIPT="https://raw.githubusercontent.com/tharuravuru/azure-quickstart-templates/master/shared_scripts/ubuntu/vm-disk-utils-0.1.sh"
             log "Disk setup script not found in `pwd`, download from $DOWNLOAD_SCRIPT"
             wget -q $DOWNLOAD_SCRIPT
         fi
