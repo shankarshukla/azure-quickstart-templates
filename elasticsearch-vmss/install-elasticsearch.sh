@@ -101,7 +101,7 @@ install_java()
     MAX_RETRY=5
     while [ $RETRY -lt $MAX_RETRY ]; do
         log "Retry $RETRY: downloading jdk-8u241-linux-x64.tar.gz"
-        wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://enos.itcollege.ee/~jpoial/allalaadimised/jdk8/jdk-8u241-linux-x64.tar.gz
+        wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://enos.itcollege.ee/~jpoial/allalaadimised/jdk8/jdk-8u261-linux-x64.tar.gz
         if [ $? -ne 0 ]; then
             let RETRY=RETRY+1
         else
@@ -109,12 +109,12 @@ install_java()
         fi
     done
     if [ $RETRY -eq $MAX_RETRY ]; then
-        log "Failed to download jdk-8u241-linux-x64.tar.gz"
+        log "Failed to download jdk-8u261-linux-x64.tar.gz"
         exit 1
     fi
     
-    tar xvf jdk-8u241-linux-x64.tar.gz -C /var/lib
-    export JAVA_HOME=/var/lib/jdk1.8.0_241
+    tar xvf jdk-8u261-linux-x64.tar.gz -C /var/lib
+    export JAVA_HOME=/var/lib/jdk1.8.0_261
     export PATH=$PATH:$JAVA_HOME/bin
     log "JAVA_HOME: $JAVA_HOME"
     log "PATH: $PATH"
