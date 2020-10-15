@@ -173,7 +173,7 @@ configure_system()
 	resolvconf -u
 	#ES_HEAP=`free -m |grep Mem | awk '{if ($2/2 >31744)  print 31744;else printf "%.0f", $2/2;}'`
 	#echo "ES_JAVA_OPTS=\"-Xms${ES_HEAP}m -Xmx${ES_HEAP}m\"" >> /etc/default/elasticsearch
-	echo "ES_JAVA_OPTS=\"-Xms5g -Xmx5g\"" >> /etc/default/elasticsearch
+	echo "ES_JAVA_OPTS=\"-Xms6g -Xmx6g\"" >> /etc/default/elasticsearch
     echo "JAVA_HOME=$JAVA_HOME" >> /etc/default/elasticsearch
     echo 'MAX_OPEN_FILES=65536' >> /etc/default/elasticsearch
     echo 'MAX_LOCKED_MEMORY=unlimited' >> /etc/default/elasticsearch
