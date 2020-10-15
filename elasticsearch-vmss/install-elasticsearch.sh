@@ -90,18 +90,18 @@ done
 # Install Oracle Java
 install_java()
 {
-    if [ -f "jdk-8u201-linux-x64.tar.gz" ];
+    if [ -f "jdk-8u241-linux-x64.tar.gz" ];
     then
         log "Java already downloaded"
         return
     fi
     
-    log "Installing Java"
+    log "Installing Java3333"
     RETRY=0
     MAX_RETRY=5
     while [ $RETRY -lt $MAX_RETRY ]; do
-        log "Retry $RETRY: downloading jdk-8u201-linux-x64.tar.gz"
-        wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/jdk-8u201-linux-x64.tar.gz
+        log "Retry $RETRY: downloading jdk-8u241-linux-x64.tar.gz"
+        wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://enos.itcollege.ee/~jpoial/allalaadimised/jdk8/jdk-8u261-linux-x64.tar.gz
         if [ $? -ne 0 ]; then
             let RETRY=RETRY+1
         else
@@ -109,12 +109,12 @@ install_java()
         fi
     done
     if [ $RETRY -eq $MAX_RETRY ]; then
-        log "Failed to download jdk-8u201-linux-x64.tar.gz"
+        log "Failed to download jdk-8u261-linux-x64.tar.gz"
         exit 1
     fi
     
-    tar xzf jdk-8u201-linux-x64.tar.gz -C /var/lib
-    export JAVA_HOME=/var/lib/jdk1.8.0_201
+    tar xvf jdk-8u261-linux-x64.tar.gz -C /var/lib
+    export JAVA_HOME=/var/lib/jdk1.8.0_261
     export PATH=$PATH:$JAVA_HOME/bin
     log "JAVA_HOME: $JAVA_HOME"
     log "PATH: $PATH"
@@ -153,7 +153,7 @@ configure_es()
 	echo "cluster.name: $CLUSTER_NAME" >> /etc/elasticsearch/elasticsearch.yml
 	echo "node.name: ${HOSTNAME}" >> /etc/elasticsearch/elasticsearch.yml
 	echo "discovery.zen.minimum_master_nodes: 2" >> /etc/elasticsearch/elasticsearch.yml
-	echo 'discovery.zen.ping.unicast.hosts: ["10.0.0.10", "10.0.0.11", "10.0.0.12"]' >> /etc/elasticsearch/elasticsearch.yml
+	echo 'discovery.zen.ping.unicast.hosts: ["10.4.35.10", "10.4.35.11", "10.4.35.12"]' >> /etc/elasticsearch/elasticsearch.yml
 	echo "network.host: _site_" >> /etc/elasticsearch/elasticsearch.yml
 	echo "bootstrap.memory_lock: true" >> /etc/elasticsearch/elasticsearch.yml
         echo "xpack.security.enabled: false" >> /etc/elasticsearch/elasticsearch.yml
@@ -171,8 +171,9 @@ configure_system()
 {
 	echo "options timeout:1 attempts:5" >> /etc/resolvconf/resolv.conf.d/head
 	resolvconf -u
-	ES_HEAP=`free -m |grep Mem | awk '{if ($2/2 >31744)  print 31744;else printf "%.0f", $2/2;}'`
-	echo "ES_JAVA_OPTS=\"-Xms${ES_HEAP}m -Xmx${ES_HEAP}m\"" >> /etc/default/elasticsearch
+	#ES_HEAP=`free -m |grep Mem | awk '{if ($2/2 >31744)  print 31744;else printf "%.0f", $2/2;}'`
+	#echo "ES_JAVA_OPTS=\"-Xms${ES_HEAP}m -Xmx${ES_HEAP}m\"" >> /etc/default/elasticsearch
+	echo "ES_JAVA_OPTS=\"-Xms2g -Xmx2g\"" >> /etc/default/elasticsearch
     echo "JAVA_HOME=$JAVA_HOME" >> /etc/default/elasticsearch
     echo 'MAX_OPEN_FILES=65536' >> /etc/default/elasticsearch
     echo 'MAX_LOCKED_MEMORY=unlimited' >> /etc/default/elasticsearch
@@ -199,7 +200,7 @@ configure_system()
         DATA_DIR="/datadisks/disk1"
         if ! [ -f "vm-disk-utils-0.1.sh" ]; 
         then
-            DOWNLOAD_SCRIPT="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/shared_scripts/ubuntu/vm-disk-utils-0.1.sh"
+            DOWNLOAD_SCRIPT="https://raw.githubusercontent.com/tharuravuru/azure-quickstart-templates/master/shared_scripts/ubuntu/vm-disk-utils-0.1.sh"
             log "Disk setup script not found in `pwd`, download from $DOWNLOAD_SCRIPT"
             wget -q $DOWNLOAD_SCRIPT
         fi
