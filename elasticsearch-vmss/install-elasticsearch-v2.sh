@@ -153,7 +153,7 @@ configure_es()
 	echo "cluster.name: $CLUSTER_NAME" >> /etc/elasticsearch/elasticsearch.yml
 	echo "node.name: ${HOSTNAME}" >> /etc/elasticsearch/elasticsearch.yml
 	echo "discovery.zen.minimum_master_nodes: 2" >> /etc/elasticsearch/elasticsearch.yml
-	echo 'discovery.zen.ping.unicast.hosts: ["10.4.35.10", "10.4.35.11", "10.4.35.12"]' >> /etc/elasticsearch/elasticsearch.yml
+	echo 'discovery.zen.ping.unicast.hosts: ["10.28.35.12.10", "10.28.35.11", "10.28.35.12"]' >> /etc/elasticsearch/elasticsearch.yml
 	echo "network.host: _site_" >> /etc/elasticsearch/elasticsearch.yml
 	echo "bootstrap.memory_lock: true" >> /etc/elasticsearch/elasticsearch.yml
         echo "xpack.security.enabled: false" >> /etc/elasticsearch/elasticsearch.yml
@@ -173,7 +173,7 @@ configure_system()
 	resolvconf -u
 	#ES_HEAP=`free -m |grep Mem | awk '{if ($2/2 >31744)  print 31744;else printf "%.0f", $2/2;}'`
 	#echo "ES_JAVA_OPTS=\"-Xms${ES_HEAP}m -Xmx${ES_HEAP}m\"" >> /etc/default/elasticsearch
-	echo "ES_JAVA_OPTS=\"-Xms2g -Xmx2g\"" >> /etc/default/elasticsearch
+	echo "ES_JAVA_OPTS=\"-Xms5g -Xmx5g\"" >> /etc/default/elasticsearch
     echo "JAVA_HOME=$JAVA_HOME" >> /etc/default/elasticsearch
     echo 'MAX_OPEN_FILES=65536' >> /etc/default/elasticsearch
     echo 'MAX_LOCKED_MEMORY=unlimited' >> /etc/default/elasticsearch
