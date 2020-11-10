@@ -129,6 +129,25 @@ install_java()
     fi
 }
 
+# Install default Java(11)
+install_default_java()
+{
+     log "Installing install_default_java"
+    java -version
+    sudo apt-get update && sudo apt-get -y upgrade
+    sudo apt install -y default-jdk
+    export JAVA_HOME=/usr/lib/jvm/default-java/
+    export PATH=$PATH:$JAVA_HOME/bin
+    log "JAVA_HOME: $JAVA_HOME"
+    log "PATH: $PATH"
+    
+    java -version
+    if [ $? -ne 0 ]; then
+        log "Java installation failed"
+        exit 1
+    fi
+}
+
 install_es()
 {
     wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
@@ -271,7 +290,7 @@ start_service()
 
 log "starting elasticsearch setup"
 
-install_java
+install_default_java
 install_es_latest
 configure_es
 configure_system
