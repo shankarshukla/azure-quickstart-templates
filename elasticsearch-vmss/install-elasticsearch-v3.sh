@@ -176,7 +176,7 @@ configure_es()
 	echo "cluster.name: $CLUSTER_NAME" >> /etc/elasticsearch/elasticsearch.yml
 	echo "node.name: ${HOSTNAME}" >> /etc/elasticsearch/elasticsearch.yml
 	echo "discovery.zen.minimum_master_nodes: 2" >> /etc/elasticsearch/elasticsearch.yml
-	echo 'discovery.zen.ping.unicast.hosts: ["10.28.35.12.10", "10.28.35.11", "10.28.35.12"]' >> /etc/elasticsearch/elasticsearch.yml
+	echo 'discovery.zen.ping.unicast.hosts: ["10.28.35.10", "10.28.35.11", "10.28.35.12"]' >> /etc/elasticsearch/elasticsearch.yml
 	echo "network.host: _site_" >> /etc/elasticsearch/elasticsearch.yml
 	echo "bootstrap.memory_lock: true" >> /etc/elasticsearch/elasticsearch.yml
         echo "xpack.security.enabled: false" >> /etc/elasticsearch/elasticsearch.yml
