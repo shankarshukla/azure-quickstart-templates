@@ -236,7 +236,7 @@ configure_system()
         # Kibana    
         IP_ADDRESS=$(ip route get 8.8.8.8 | awk -F"src " 'NR==1{split($2,a," ");print a[1]}')
         echo "server.host: \"$IP_ADDRESS\"" >> /etc/kibana/kibana.yml
-        echo "elasticsearch.hosts: [\"http://$IP_ADDRESS:9200\"]" >> /etc/kibana/kibana.yml
+        echo 'elasticsearch.hosts: ["10.28.35.10", "10.28.35.11", "10.28.35.12"]'  >> /etc/kibana/kibana.yml
 	echo "logging.dest: \"/tmp/kibana.log\"" >> /etc/kibana/kibana.yml
         echo "xpack.security.enabled: false" >> /etc/kibana/kibana.yml
         chown -R kibana:kibana /usr/share/kibana
