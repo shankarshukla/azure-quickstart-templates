@@ -195,18 +195,17 @@ configure_es()
 	echo "path.logs: /var/log/elasticsearch" >> /etc/elasticsearch/elasticsearch.yml
 	echo "cluster.name: $CLUSTER_NAME" >> /etc/elasticsearch/elasticsearch.yml
 	echo "node.name: ${HOSTNAME}" >> /etc/elasticsearch/elasticsearch.yml
-	echo "discovery.zen.minimum_master_nodes: 2" >> /etc/elasticsearch/elasticsearch.yml
+	echo "discovery.zen.minimum_master_nodes: 1" >> /etc/elasticsearch/elasticsearch.yml
 	echo 'discovery.seed_hosts: ["10.28.35.10", "10.28.35.11", "10.28.35.12"]' >> /etc/elasticsearch/elasticsearch.yml
 	echo "network.host: _site_" >> /etc/elasticsearch/elasticsearch.yml
 	echo "bootstrap.memory_lock: true" >> /etc/elasticsearch/elasticsearch.yml
         echo "xpack.security.enabled: false" >> /etc/elasticsearch/elasticsearch.yml
-
+        echo "cluster.initial_master_nodes: master-vm0" >> /etc/elasticsearch/elasticsearch.yml
 	if [ ${IS_DATA_NODE} -eq 1 ]; then
 	    echo "node.master: false" >> /etc/elasticsearch/elasticsearch.yml
 	    echo "node.data: true" >> /etc/elasticsearch/elasticsearch.yml
 	else
         echo "node.master: true" >> /etc/elasticsearch/elasticsearch.yml
-	echo "cluster.initial_master_nodes: ${HOSTNAME}" >> /etc/elasticsearch/elasticsearch.yml
         echo "node.data: false" >> /etc/elasticsearch/elasticsearch.yml
 	fi
 }
