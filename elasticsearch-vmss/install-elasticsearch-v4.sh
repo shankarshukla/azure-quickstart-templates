@@ -196,7 +196,7 @@ configure_es()
 	echo "cluster.name: $CLUSTER_NAME" >> /etc/elasticsearch/elasticsearch.yml
 	echo "node.name: ${HOSTNAME}" >> /etc/elasticsearch/elasticsearch.yml
 	echo "discovery.zen.minimum_master_nodes: 1" >> /etc/elasticsearch/elasticsearch.yml
-	echo 'discovery.seed_hosts: ["10.28.35.20", "10.28.35.21", "10.28.35.22"]' >> /etc/elasticsearch/elasticsearch.yml
+	echo 'discovery.seed_hosts: ["10.4.35.20", "10.4.35.21", "10.4.35.22"]' >> /etc/elasticsearch/elasticsearch.yml
 	echo "network.host: _site_" >> /etc/elasticsearch/elasticsearch.yml
 	echo "bootstrap.memory_lock: true" >> /etc/elasticsearch/elasticsearch.yml
         echo "xpack.security.enabled: false" >> /etc/elasticsearch/elasticsearch.yml
@@ -235,7 +235,7 @@ configure_system()
         # Kibana    
         IP_ADDRESS=$(ip route get 8.8.8.8 | awk -F"src " 'NR==1{split($2,a," ");print a[1]}')
         echo "server.host: \"$IP_ADDRESS\"" >> /etc/kibana/kibana.yml
-        echo 'elasticsearch.hosts: ["http://10.28.35.20:9200", "http://10.28.35.21:9200", "http://10.28.35.22:9200"]'  >> /etc/kibana/kibana.yml
+        echo 'elasticsearch.hosts: ["http://10.4.35.20:9200", "http://10.4.35.21:9200", "http://10.4.35.22:9200"]'  >> /etc/kibana/kibana.yml
 	echo "logging.dest: \"/tmp/kibana.log\"" >> /etc/kibana/kibana.yml
         echo "xpack.security.enabled: false" >> /etc/kibana/kibana.yml
         chown -R kibana:kibana /usr/share/kibana
