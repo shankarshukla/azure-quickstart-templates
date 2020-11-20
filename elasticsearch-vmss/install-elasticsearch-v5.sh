@@ -198,10 +198,12 @@ configure_es()
 	echo "discovery.zen.minimum_master_nodes: 1" >> /etc/elasticsearch/elasticsearch.yml
 	echo 'discovery.seed_hosts: ["10.4.35.30", "10.4.35.31", "10.4.35.32"]' >> /etc/elasticsearch/elasticsearch.yml
 	echo "network.host: _site_" >> /etc/elasticsearch/elasticsearch.yml
-  echo "xpack.security.enabled: true" >> /etc/elasticsearch/elasticsearch.yml
-  echo "xpack.security.transport.ssl.enabled: true" >> /etc/elasticsearch/elasticsearch.yml 
+	
+	#Security Settings 
+        echo "xpack.security.enabled: true" >> /etc/elasticsearch/elasticsearch.yml
+        echo "xpack.security.transport.ssl.enabled: true" >> /etc/elasticsearch/elasticsearch.yml 
+	
 	echo "bootstrap.memory_lock: true" >> /etc/elasticsearch/elasticsearch.yml
-        echo "xpack.security.enabled: false" >> /etc/elasticsearch/elasticsearch.yml
         echo "cluster.initial_master_nodes: master-vm0" >> /etc/elasticsearch/elasticsearch.yml
 	if [ ${IS_DATA_NODE} -eq 1 ]; then
 	    echo "node.master: false" >> /etc/elasticsearch/elasticsearch.yml
@@ -239,10 +241,11 @@ configure_system()
         echo "server.host: \"$IP_ADDRESS\"" >> /etc/kibana/kibana.yml
         echo 'elasticsearch.hosts: ["http://10.4.35.30:9200", "http://10.4.35.31:9200", "http://10.4.35.32:9200"]'  >> /etc/kibana/kibana.yml
 	      echo "logging.dest: \"/tmp/kibana.log\"" >> /etc/kibana/kibana.yml
-        echo "xpack.security.enabled: false" >> /etc/kibana/kibana.yml
+	#Security Settings      
         echo "xpack.security.enabled: true" >> /etc/kibana/kibana.yml
-        echo "elasticsearch.username: esuser" >> /etc/kibana/kibana.yml
+        echo "elasticsearch.username: elastic" >> /etc/kibana/kibana.yml
         echo "elasticsearch.password: changeme" >> /etc/kibana/kibana.yml
+	
         chown -R kibana:kibana /usr/share/kibana
     else
         # data disk
