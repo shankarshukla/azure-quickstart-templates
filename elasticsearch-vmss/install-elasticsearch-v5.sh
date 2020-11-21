@@ -201,7 +201,7 @@ configure_es()
 	
 	#Security Settings 
         echo "xpack.security.enabled: true" >> /etc/elasticsearch/elasticsearch.yml
-        echo "xpack.security.transport.ssl.enabled: true" >> /etc/elasticsearch/elasticsearch.yml 
+        echo "xpack.security.transport.ssl.enabled: false" >> /etc/elasticsearch/elasticsearch.yml 
 	
 	echo "bootstrap.memory_lock: true" >> /etc/elasticsearch/elasticsearch.yml
         echo "cluster.initial_master_nodes: master-vm0" >> /etc/elasticsearch/elasticsearch.yml
