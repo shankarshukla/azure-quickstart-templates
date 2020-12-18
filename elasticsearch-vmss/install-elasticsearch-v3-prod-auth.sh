@@ -62,7 +62,7 @@ else
 fi
 
 #Script Parameters
-CLUSTER_NAME="es-azure"
+CLUSTER_NAME="es-azure-west"
 ES_VERSION="5.1.2"
 IS_DATA_NODE=1
 
