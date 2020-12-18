@@ -199,6 +199,11 @@ configure_es()
 	echo "discovery.zen.minimum_master_nodes: 1" >> /etc/elasticsearch/elasticsearch.yml
 	echo 'discovery.seed_hosts: ["10.28.35.20", "10.28.35.21", "10.28.35.22"]' >> /etc/elasticsearch/elasticsearch.yml
 	echo "network.host: _site_" >> /etc/elasticsearch/elasticsearch.yml
+	
+	#Security Settings 
+        echo "xpack.security.enabled: true" >> /etc/elasticsearch/elasticsearch.yml
+        echo "xpack.security.transport.ssl.enabled: false" >>
+	
 	echo "bootstrap.memory_lock: true" >> /etc/elasticsearch/elasticsearch.yml
         echo "xpack.security.enabled: false" >> /etc/elasticsearch/elasticsearch.yml
         echo "cluster.initial_master_nodes: master-vm0" >> /etc/elasticsearch/elasticsearch.yml
