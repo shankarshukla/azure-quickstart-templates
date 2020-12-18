@@ -245,7 +245,7 @@ configure_system()
 	#Security Settings      
         echo "xpack.security.enabled: true" >> /etc/kibana/kibana.yml
         echo "elasticsearch.username: elastic" >> /etc/kibana/kibana.yml
-        echo "elasticsearch.password: changeme" >> /etc/kibana/kibana.yml
+        echo "elasticsearch.password: estiou123" >> /etc/kibana/kibana.yml
         chown -R kibana:kibana /usr/share/kibana
     else
         # data disk
