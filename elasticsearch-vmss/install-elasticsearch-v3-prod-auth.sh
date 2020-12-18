@@ -239,6 +239,10 @@ configure_system()
         echo 'elasticsearch.hosts: ["http://10.28.35.20:9200", "http://10.28.35.21:9200", "http://10.28.35.22:9200"]'  >> /etc/kibana/kibana.yml
 	echo "logging.dest: \"/tmp/kibana.log\"" >> /etc/kibana/kibana.yml
         echo "xpack.security.enabled: false" >> /etc/kibana/kibana.yml
+	#Security Settings      
+        echo "xpack.security.enabled: true" >> /etc/kibana/kibana.yml
+        echo "elasticsearch.username: elastic" >> /etc/kibana/kibana.yml
+        echo "elasticsearch.password: changeme" >> /etc/kibana/kibana.yml
         chown -R kibana:kibana /usr/share/kibana
     else
         # data disk
