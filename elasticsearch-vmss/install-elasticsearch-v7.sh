@@ -135,7 +135,8 @@ install_default_java()
 {
      log "Installing install_default_java"
     java -version
-    sudo apt-get update && sudo apt-get -y upgrade
+    sudo apt-get -y update && sudo apt-get -y upgrade
+    sudo apt-get -y update && sudo apt-get -y upgrade
     sudo apt install -y default-jdk
     export JAVA_HOME=/usr/lib/jvm/default-java/
     export PATH=$PATH:$JAVA_HOME/bin
