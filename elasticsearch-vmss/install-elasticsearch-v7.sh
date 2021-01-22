@@ -65,6 +65,7 @@ fi
 CLUSTER_NAME="es-azure-centralus"
 ES_VERSION="5.1.2"
 IS_DATA_NODE=1
+CLUSTER_PASSWORD="***"
 
 #Loop through options passed
 while getopts :n:mh optname; do
@@ -75,6 +76,9 @@ while getopts :n:mh optname; do
       ;;
     m) #set master mode
       IS_DATA_NODE=0
+      ;;
+    p) #set master mode
+      CLUSTER_PASSWORD=${OPTARG}
       ;;
     h) #show help
       help
@@ -246,7 +250,7 @@ configure_system()
 	#Security Settings      
         echo "xpack.security.enabled: true" >> /etc/kibana/kibana.yml
         echo "elasticsearch.username: elastic" >> /etc/kibana/kibana.yml
-        echo "elasticsearch.password: changeme" >> /etc/kibana/kibana.yml
+        echo "elasticsearch.password: $CLUSTER_PASSWORD" >> /etc/kibana/kibana.yml
         chown -R kibana:kibana /usr/share/kibana
     else
         # data disk
