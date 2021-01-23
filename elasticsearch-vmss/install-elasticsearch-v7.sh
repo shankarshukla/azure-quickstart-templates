@@ -92,6 +92,8 @@ while getopts :n:mph optname; do
   esac
 done
 
+echo "cluster.name: $CLUSTER_NAME"
+
 # Install Oracle Java
 install_java()
 {
