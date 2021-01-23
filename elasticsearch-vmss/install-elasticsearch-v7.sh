@@ -68,7 +68,7 @@ IS_DATA_NODE=1
 CLUSTER_PASSWORD="***"
 
 #Loop through options passed
-while getopts :n:mph optname; do
+while getopts :n:mp:h optname; do
   log "Option $optname set with value ${OPTARG}"
   case $optname in
     n) #set cluster name
