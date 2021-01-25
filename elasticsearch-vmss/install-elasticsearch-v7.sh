@@ -322,7 +322,7 @@ install_nginx()
 	sudo htpasswd -b -c /etc/nginx/htpasswd.users readonly $READONLY_PASSWORD
 	
 	log "########## configure nginx #########"
-	echo "readonly:$readonlyPassword">>tempt.txt
+	echo 'readonly:'$READONLY_PASSWORD>>tempt.txt
 	
 	encodedPassword=`base64 tempt.txt`
 	echo "$encodedPassword"
