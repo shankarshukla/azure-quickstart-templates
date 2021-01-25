@@ -320,7 +320,50 @@ install_nginx()
 	
 	log "########## installing nginx #########"
 	sudo htpasswd -b -c /etc/nginx/htpasswd.users readonly $READONLY_PASSWORD
+	
+	log "########## configure nginx #########"
+	echo "readonly:$readonlyPassword">>tempt.txt
+	
+	encodedPassword=`base64 tempt.txt`
+	echo "$encodedPassword"
+	rm tempt.txt
+	
+	IP_ADDRESS=$(ip route get 8.8.8.8 | awk -F"src " 'NR==1{split($2,a," ");print a[1]}')
+        
+	
+	echo 'worker_processes  1;
+	events {
+	  worker_connections 1024;
+	}
 
+	http {
+
+
+	  upstream kibana {
+	    server '$IP_ADDRESS':5601;
+	    keepalive 15;
+
+	  }
+
+	  server {
+	    listen 8882;
+
+
+	    location / {
+	      proxy_pass http://kibana;
+	      proxy_redirect off;
+	      proxy_buffering off;
+
+	      proxy_http_version 1.1;
+	      proxy_set_header Connection "Keep-Alive";
+	      proxy_set_header Proxy-Connection "Keep-Alive";
+	      proxy_set_header  Authorization "Basic '$encodedPassword'";
+	    }
+	  }
+	}'>>/etc/nginx/nginx.conf
+	
+	log "########## updated nginx: /etc/nginx/nginx.conf #########"
+	cat /etc/nginx/nginx.conf
 }
 
 log "########## nginx installation #########"
@@ -335,7 +378,6 @@ configure_system
 start_service
 
 log "completed elasticsearch setup"
-
 
 
 exit 0
