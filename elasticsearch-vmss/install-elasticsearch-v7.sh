@@ -323,6 +323,9 @@ install_nginx()
 
 }
 
+log "########## nginx installation #########"
+install_nginx
+
 log "starting elasticsearch setup"
 
 install_default_java
@@ -333,7 +336,6 @@ start_service
 
 log "completed elasticsearch setup"
 
-log "########## nginx installation #########"
-install_nginx
+
 
 exit 0
