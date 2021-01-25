@@ -311,8 +311,7 @@ start_service()
 
 install_nginx()
 {
-	log "########## nginx configuration #########"
-	
+
 	log "########## installing nginx #########"
 	sudo apt-get install -y nginx
 	
@@ -331,8 +330,10 @@ install_es_latest
 configure_es
 configure_system
 start_service
-install_nginx()
 
 log "completed elasticsearch setup"
+
+log "########## nginx installation #########"
+install_nginx
 
 exit 0
