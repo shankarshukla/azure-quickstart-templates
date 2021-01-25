@@ -66,9 +66,10 @@ CLUSTER_NAME="es-azure-centralus"
 ES_VERSION="5.1.2"
 IS_DATA_NODE=1
 CLUSTER_PASSWORD="***"
+READONLY_PASSWORD="***"
 
 #Loop through options passed
-while getopts :n:mp:h optname; do
+while getopts :n:mp:r:h optname; do
   log "Option $optname set with value ${OPTARG}"
   case $optname in
     n) #set cluster name
@@ -79,6 +80,9 @@ while getopts :n:mp:h optname; do
       ;;
     p) #set password
       CLUSTER_PASSWORD=${OPTARG}
+      ;;
+    r) #set password
+      READONLY_PASSWORD=${OPTARG}
       ;;
     h) #show help
       help
@@ -305,6 +309,21 @@ start_service()
     fi
 }
 
+configure_es()
+{
+	log "########## nginx configuration #########"
+	
+	log "########## installing nginx #########"
+	sudo apt-get install -y nginx
+	
+	log "########## installing apache2-utils #########"
+	sudo apt-get install -y apache2-utils
+	
+	log "########## installing nginx #########"
+	sudo htpasswd -b -c /etc/nginx/htpasswd.users readonly $READONLY_PASSWORD
+
+}
+
 log "starting elasticsearch setup"
 
 install_default_java
@@ -312,6 +331,7 @@ install_es_latest
 configure_es
 configure_system
 start_service
+configure_nginx()
 
 log "completed elasticsearch setup"
 
