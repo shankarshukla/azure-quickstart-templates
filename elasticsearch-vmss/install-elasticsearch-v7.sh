@@ -309,7 +309,7 @@ start_service()
     fi
 }
 
-configure_es()
+install_nginx()
 {
 	log "########## nginx configuration #########"
 	
@@ -331,7 +331,7 @@ install_es_latest
 configure_es
 configure_system
 start_service
-configure_nginx()
+install_nginx()
 
 log "completed elasticsearch setup"
 
