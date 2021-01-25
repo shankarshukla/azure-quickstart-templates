@@ -377,6 +377,9 @@ configure_es
 configure_system
 start_service
 
+service nginx restart
+service kibana restart
+
 log "completed elasticsearch setup"
 
 
