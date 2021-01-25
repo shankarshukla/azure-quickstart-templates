@@ -360,7 +360,7 @@ install_nginx()
 	      proxy_set_header  Authorization "Basic '$encodedPassword'";
 	    }
 	  }
-	}'>>/etc/nginx/nginx.conf
+	}'>/etc/nginx/nginx.conf
 	
 	log "########## updated nginx: /etc/nginx/nginx.conf #########"
 	cat /etc/nginx/nginx.conf
