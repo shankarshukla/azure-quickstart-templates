@@ -70,7 +70,7 @@ READONLY_PASSWORD="***"
 
 #Loop through options passed
 while getopts :n:mp:r:h optname; do
-  log "Option $optname set with value ${OPTARG}"
+  #log "Option $optname set with value ${OPTARG}"
   case $optname in
     n) #set cluster name
       CLUSTER_NAME=${OPTARG}
