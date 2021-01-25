@@ -322,7 +322,7 @@ install_nginx()
 	sudo htpasswd -b -c /etc/nginx/htpasswd.users readonly $READONLY_PASSWORD
 	
 	log "########## configure nginx #########"
-	echo 'readonly:'$READONLY_PASSWORD>>tempt.txt
+	echo 'readonly:'$READONLY_PASSWORD>tempt.txt
 	
 	encodedPassword=`base64 tempt.txt`
 	echo "$encodedPassword"
@@ -366,12 +366,13 @@ install_nginx()
 	cat /etc/nginx/nginx.conf
 }
 
+log "########## JAVA installation #########"
+install_default_java
+
 log "########## nginx installation #########"
 install_nginx
 
-log "starting elasticsearch setup"
-
-install_default_java
+log "########## starting elasticsearch setup ##########"
 install_es_latest
 configure_es
 configure_system
@@ -380,7 +381,7 @@ start_service
 service nginx restart
 service kibana restart
 
-log "completed elasticsearch setup"
+log "##########  completed elasticsearch setup ##########"
 
 
 exit 0
