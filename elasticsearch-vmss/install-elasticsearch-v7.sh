@@ -346,7 +346,7 @@ install_nginx()
 	  }
 
 	  server {
-	    listen 8882;
+	    listen 9292;
 
 
 	    location / {
